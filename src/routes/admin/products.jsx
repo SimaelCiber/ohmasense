@@ -6,6 +6,7 @@ import {
   Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,
   Input, Textarea, Switch, Spinner, useDisclosure
 } from '@heroui/react'
+import { Link } from '@tanstack/react-router'
 import { ProtectedRoute } from '../../components/ProtectedRoute'
 import { supabase } from '../../lib/supabase'
 import { formatPrice } from '../../lib/utils'
@@ -151,6 +152,7 @@ function AdminProductsPage() {
               <TableColumn>MARCA</TableColumn>
               <TableColumn>PRECIO BASE</TableColumn>
               <TableColumn>ACTIVO</TableColumn>
+              <TableColumn>VARIANTES</TableColumn>
               <TableColumn>ACCIONES</TableColumn>
             </TableHeader>
             <TableBody>
@@ -160,6 +162,16 @@ function AdminProductsPage() {
                   <TableCell>{product.brand}</TableCell>
                   <TableCell>{formatPrice(product.base_price)}</TableCell>
                   <TableCell>{product.is_active ? '✅' : '❌'}</TableCell>
+                  <TableCell>
+                    <div className="flex gap-2">
+                      <Button size="sm" as={Link} to={`/admin/products/${product.id}/variants`}>
+                        Variantes
+                      </Button>
+                      <Button size="sm" as={Link} to={`/admin/products/${product.id}/images`}>
+                        Imágenes
+                      </Button>
+                    </div>
+                  </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
                       <Button size="sm" onClick={() => handleOpen(product)}>
